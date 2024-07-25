@@ -29,13 +29,18 @@ def oper():
         weather_description = data["weather"][0]['description'].capitalize()
 
         # Update UI with weather data
-        tk.Label(f, text=weather_description, font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=5)
-        tk.Label(f, text=f"Temperature: {temperature}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=5)
-        tk.Label(f, text=f"Feels Like: {feels_like}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=5)
-        tk.Label(f, text=f"Humidity: {humidity}%", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=5)
+        tk.Label(f, text=weather_description, font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=10)
+        tk.Label(f, text=f"Temperature: {temperature}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
+        tk.Label(f, text=f"Feels Like: {feels_like}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
+        tk.Label(f, text=f"Humidity: {humidity}%", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
 
     except requests.RequestException as e:
         tk.Label(f, text="Error: " + str(e), font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=5)
+
+def capitalize_text(event):
+    text = e1.get()
+    e1.delete(0, tk.END)
+    e1.insert(0, text.capitalize())
 
 root = tk.Tk()
 root.title("Weather App")
@@ -43,7 +48,7 @@ root.geometry("800x600")
 root.config(bg="#2E3B4E")
 
 # Header with padding at the top
-tk.Label(root, text="Weather App", bg="#2E3B4E", fg="#F7F9F9", font="Helvetica 24 bold").pack(pady=(20, 10))
+tk.Label(root, text="Weather App", bg="#2E3B4E", fg="#F7F9F9", font="Helvetica 24 bold").pack(pady=(80, 20))
 
 # Container for entry and button
 container = tk.Frame(root, bg="#2E3B4E")
@@ -56,14 +61,8 @@ e1 = tk.Entry(container, fg="#333", bg="#F7F9F9", font="Helvetica 16", width=20,
 e1.pack(pady=5)
 e1.insert(0, "")  # Insert empty text to ensure the entry field is initially empty
 
-# Center-align text
-def center_text(event):
-    text = e1.get()
-    e1.delete(0, tk.END)
-    e1.insert(0, text)
-    e1.icursor(tk.END)  # Move cursor to end to keep typing position
-
-e1.bind('<FocusIn>', center_text)  # Recenter text when the field gains focus
+# Bind the entry widget to capitalize text as the user types
+e1.bind('<KeyRelease>', capitalize_text)
 
 # Fetch Button - Center aligned within the container
 fetch_button = tk.Button(container, text="Fetch Weather", command=oper, bg="#4CAF50", fg="white", font="Helvetica 16", relief="flat", padx=10, pady=5)
@@ -74,6 +73,7 @@ f = tk.Frame(root, bg="#2E3B4E")
 f.pack(padx=20, pady=20, fill="both", expand=True)
 
 root.mainloop()
+
 
 
 
