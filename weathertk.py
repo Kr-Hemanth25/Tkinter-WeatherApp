@@ -81,6 +81,7 @@ fetch_button.pack(pady=10)
 # Frame for weather details
 f = tk.Frame(root, bg="#2E3B4E")
 f.pack(padx=20, pady=20, fill="both", expand=True)
+root.maxsize()
 
 root.mainloop()
 
