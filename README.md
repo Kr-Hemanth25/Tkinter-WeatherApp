@@ -18,5 +18,5 @@ A simple weather application built using Tkinter and the OpenWeatherMap API. Thi
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/tkinter-weather.git
+   git clone git@github.com:Kr-Hemanth25/Tkinter-WeatherApp.git
    cd tkinter-weather
