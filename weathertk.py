@@ -29,7 +29,7 @@ def oper():
         weather_description = data["weather"][0]['description'].capitalize()
 
         # Update UI with weather data
-        tk.Label(f, text=f"Weather:{weather_description}", font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=5)
+        tk.Label(f, text=weather_description, font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=5)
         tk.Label(f, text=f"Temperature: {temperature}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=5)
         tk.Label(f, text=f"Feels Like: {feels_like}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=5)
         tk.Label(f, text=f"Humidity: {humidity}%", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=5)
@@ -43,7 +43,7 @@ root.geometry("800x600")
 root.config(bg="#2E3B4E")
 
 # Header with padding at the top
-tk.Label(root, text="Weather App", bg="#2E3B4E", fg="#F7F9F9", font="Helvetica 24 bold").pack(pady=(100, 10))
+tk.Label(root, text="Weather App", bg="#2E3B4E", fg="#F7F9F9", font="Helvetica 24 bold").pack(pady=(20, 10))
 
 # Container for entry and button
 container = tk.Frame(root, bg="#2E3B4E")
@@ -52,7 +52,7 @@ container.pack(pady=20)
 # Location Entry - Center aligned within the container
 tk.Label(container, text="Enter Location:", bg="#2E3B4E", fg="#F7F9F9", font="Helvetica 16").pack(pady=5)
 
-e1 = tk.Entry(container, fg="#333", bg="#F7F9F9", font="Helvetica 16", width=20)
+e1 = tk.Entry(container, fg="#333", bg="#F7F9F9", font="Helvetica 16", width=20, justify='center')
 e1.pack(pady=5)
 e1.insert(0, "")  # Insert empty text to ensure the entry field is initially empty
 
