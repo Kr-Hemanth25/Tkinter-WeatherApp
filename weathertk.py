@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 from io import BytesIO
 import os
 from dotenv import load_dotenv
+from datetime import datetime,timezone,timedelta
 
 # Load environment variables from .env file
 load_dotenv()
@@ -27,12 +28,21 @@ def oper():
         feels_like = str(data["main"]["feels_like"])
         humidity = str(data["main"]["humidity"])
         weather_description = data["weather"][0]['description'].capitalize()
+        
+
+         # Convert to local time using timezone-aware objects
+        timezone_offset = data["timezone"]
+        utc_time = datetime.fromtimestamp(data["dt"], timezone.utc)
+        local_time = utc_time + timedelta(seconds=timezone_offset)
+        local_time_str = local_time.strftime('%Y-%m-%d %H:%M:%S')
+
 
         # Update UI with weather data
         tk.Label(f, text=weather_description, font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=10)
         tk.Label(f, text=f"Temperature: {temperature}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
         tk.Label(f, text=f"Feels Like: {feels_like}°C", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
         tk.Label(f, text=f"Humidity: {humidity}%", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
+        tk.Label(f, text=f"Time: {local_time_str}", font="Helvetica 24 bold", bg="#2E3B4E", fg="white").pack(pady=10)
 
     except requests.RequestException as e:
         tk.Label(f, text="Error: " + str(e), font="Helvetica 20 bold", bg="#2E3B4E", fg="white").pack(pady=5)
